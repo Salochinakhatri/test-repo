@@ -12,23 +12,23 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v4
 
-    - name: Set up Node.js (if needed)
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
+    # OPTIONAL: Only needed if you're using Node.js
+    # - name: Set up Node.js
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: '18'
 
-    - name: Install Node packages
-      run: npm install
+    # - name: Install Node packages
+    #   run: npm install
 
-    - name: Build assets
-      run: npm run build
+    # - name: Build frontend
+    #   run: npm run build
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: app
-        path: |
-          . # You can restrict to only built files if needed
+        path: .
 
     - name: Deploy with rsync
       uses: burnett01/rsync-deployments@7.0.1
@@ -38,5 +38,5 @@ jobs:
         remote_path: /var/www/mysite
         remote_host: 13.60.12.148
         remote_user: deployuser
-        remote_key: ${{ secrets.DEPLOY__KEY }}
+        remote_key: ${{ secrets.DEPLOY_KEY }}
 
